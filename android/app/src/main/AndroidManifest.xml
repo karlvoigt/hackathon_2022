@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hackathon_2022">
+    package="com.example.hackathon">
    <application
-        android:label="hackathon_2022"
+        android:label="hackathon"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

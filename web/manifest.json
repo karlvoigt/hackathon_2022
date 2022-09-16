@@ -1,6 +1,6 @@
 {
-    "name": "hackathon_2022",
-    "short_name": "hackathon_2022",
+    "name": "hackathon",
+    "short_name": "hackathon",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

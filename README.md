@@ -1,4 +1,4 @@
-# hackathon_2022
+# hackathon
 
 A new Flutter project.
 
