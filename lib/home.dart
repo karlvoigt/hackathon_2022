@@ -163,23 +163,6 @@ class _Send extends State<Send> {
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 30, color: Colors.white),
         )),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.exit_to_app,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              FirebaseAuth auth = FirebaseAuth.instance;
-              auth.signOut().then((res) {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignUp()),
-                        (Route<dynamic> route) => false);
-              });
-            },
-          )
-        ],
       ),
       body: Center(
         child: Column(children: [
@@ -299,6 +282,23 @@ class _Home extends State<Home> {
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 30, color: Colors.white),
         )),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              FirebaseAuth auth = FirebaseAuth.instance;
+              auth.signOut().then((res) {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUp()),
+                        (Route<dynamic> route) => false);
+              });
+            },
+          )
+        ],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it

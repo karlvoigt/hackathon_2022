@@ -21,9 +21,15 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -52,25 +58,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1014170192164',
     projectId: 'fb-backend-68bd1',
     authDomain: 'fb-backend-68bd1.firebaseapp.com',
+    databaseURL: 'https://fb-backend-68bd1-default-rtdb.firebaseio.com',
     storageBucket: 'fb-backend-68bd1.appspot.com',
     measurementId: 'G-2R1K8BKL0W',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCHD5iZ52hEKuOuHc6KdS6RQ4vQGi1FF2I',
-    appId: '1:1014170192164:android:ba5bbbf7743f45bf65cbb1',
-    messagingSenderId: '1014170192164',
-    projectId: 'fb-backend-68bd1',
-    storageBucket: 'fb-backend-68bd1.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDNTUKTiPCsHVMsTI1J7uU1clJ-9KhsKGI',
-    appId: '1:1014170192164:ios:aaa5f00bfbc4938f65cbb1',
-    messagingSenderId: '1014170192164',
-    projectId: 'fb-backend-68bd1',
-    storageBucket: 'fb-backend-68bd1.appspot.com',
-    iosClientId: '1014170192164-adjcmk7p0hmrakk982je6munqejbk5in.apps.googleusercontent.com',
-    iosBundleId: 'com.example.hackathon2022',
   );
 }
