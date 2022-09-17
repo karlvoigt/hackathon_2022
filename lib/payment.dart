@@ -24,13 +24,13 @@ class _Payment extends State<Payment> {
     rid = widget.receiverID;
     final ref = FirebaseDatabase.instance.ref();
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == Null) {
+    if (uid == null) {
       Navigator.pop(
         context,
         MaterialPageRoute(builder: (context) => MyApp()),
       );
     }
-    final snapshot =
+
     ref.child('Identifier/$rid/name').get().then((snapshot) => {
       if (snapshot.exists)
         {
@@ -74,19 +74,29 @@ class _Payment extends State<Payment> {
                   child: const Text('Yes!'),
                   onPressed: () async {
                     final ref = FirebaseDatabase.instance.ref();
-                    final snapshot =
-                    ref.child('Identifier/$rid/balance').get().then((snapshot) => {
-                      if (snapshot.exists)
+                    final uid = FirebaseAuth.instance.currentUser?.uid;
+
+                    if (uid == null) {
+                      return;
+                    }
+
+                    ref.child('Identifier/$uid/balance').get().then((currBalance) => {
+                      if (currBalance.exists && int.parse(currBalance.value.toString()) > amount) {
+                        ref.child('Identifier/$rid/balance').get().then((recBalance) => {
+                      if (recBalance.exists)
                         {
-                          setState(() {
-                            int Balance = int.parse(snapshot.value.toString());
+                            setState(() {
+                            int Balance = int.parse(recBalance.value.toString());
                             Balance+= amount;
                             ref.child('Identifier/$rid/balance').set(Balance);
                           })
                         }
                       else
                         {print('No data available.')}
-                    });
+                    })}
+                      }
+                    );
+
                     FocusScope.of(context)
                         .unfocus(); // unfocus last selected input field
                     Navigator.pop(context);
@@ -124,7 +134,7 @@ class _Payment extends State<Payment> {
            Align(
             alignment: Alignment.center,
             child: Text("How much would you like to send to $rName?",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                 )),
           ),
