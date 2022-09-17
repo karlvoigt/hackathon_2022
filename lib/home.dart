@@ -9,6 +9,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'signup.dart';
 import 'send.dart';
 import 'Load.dart';
+import 'receive.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,6 +19,7 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  int _counter = 0;
   int _balance = 0;
 
   @override
@@ -25,7 +27,7 @@ class _Home extends State<Home> {
     super.initState();
     final ref = FirebaseDatabase.instance.ref();
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) {
+    if (uid == Null) {
       Navigator.pop(
         context,
         MaterialPageRoute(builder: (context) => MyApp()),
@@ -44,6 +46,7 @@ class _Home extends State<Home> {
             });
   }
 
+  void getBalance() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -135,9 +138,7 @@ class _Home extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Send()),
-                                  ).then((_){
-                                    initState();
-                                  });
+                                  );
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +161,14 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  window.navigator.getUserMedia(video: true);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Receive()),
+                                  );
+                                },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

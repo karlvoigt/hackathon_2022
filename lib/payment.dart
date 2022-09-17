@@ -3,7 +3,6 @@ import 'home.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
-import 'send.dart';
 
 class Payment extends StatefulWidget {
   const Payment({super.key, required this.receiverID});
@@ -32,17 +31,16 @@ class _Payment extends State<Payment> {
       );
     }
     final snapshot =
-        ref.child('Identifier/$rid/name').get().then((snapshot) => {
-              if (snapshot.exists)
-                {
-                  setState(() {
-                    rName = snapshot.value.toString();
-                  })
-                }
-
-              else
-                {print('No data available.')}
-            });
+    ref.child('Identifier/$rid/name').get().then((snapshot) => {
+      if (snapshot.exists)
+        {
+          setState(() {
+            rName = snapshot.value.toString();
+          })
+        }
+      else
+        {print('No data available.')}
+    });
   }
 
   void _submit() {
@@ -67,64 +65,41 @@ class _Payment extends State<Payment> {
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.grey,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-              ),
-              child: const Text('Yes!'),
-              onPressed: () async {
-                final ref = FirebaseDatabase.instance.ref();
-                final uid = FirebaseAuth.instance.currentUser?.uid;
-                if (uid == null) {
-                  // TODO display error
-                } final currentBalance = ref
-                    .child('Identifier/$uid/balance')
-                    .get()
-                    .then((balance) => {
-                  if (balance.exists &&
-                      (int.parse(balance.value.toString()) >= amount))
-                    {
-                      setState(() {
-                        int myBal = int.parse(balance.value.toString());
-                        final snapshot = ref
-                            .child('Identifier/$rid/balance')
-                            .get()
-                            .then((snapshot) => {
-                          if (snapshot.exists)
-                            {
-                              setState(() {
-                                int Balance = int.parse(
-                                    snapshot.value.toString());
-                                Balance += amount;
-                                myBal = myBal - amount;
-                                ref
-                                    .child(
-                                    'Identifier/$rid/balance')
-                                    .set(Balance);
-                                ref
-                                    .child(
-                                    'Identifier/$uid/balance')
-                                    .set(myBal);
-                              })
-                            }
-                          else
-                            {print('No data available.')}
-                        });
-                      })
-                    }
-                });
-
-
-                Navigator.pop(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Send()),
-                ); // Empty the form fields
-                setState(() {});
-              }, // so the alert dialog is closed when navigating back to main page
-            ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.grey,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                  ),
+                  child: const Text('Yes!'),
+                  onPressed: () async {
+                    final ref = FirebaseDatabase.instance.ref();
+                    final snapshot =
+                    ref.child('Identifier/$rid/balance').get().then((snapshot) => {
+                      if (snapshot.exists)
+                        {
+                          setState(() {
+                            int Balance = int.parse(snapshot.value.toString());
+                            Balance+= amount;
+                            ref.child('Identifier/$rid/balance').set(Balance);
+                          })
+                        }
+                      else
+                        {print('No data available.')}
+                    });
+                    FocusScope.of(context)
+                        .unfocus(); // unfocus last selected input field
+                    Navigator.pop(context);
+                    await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const Home())) // Open my profile
+                        .then((_) => _formKey.currentState
+                            ?.reset()); // Empty the form fields
+                    setState(() {});
+                  }, // so the alert dialog is closed when navigating back to main page
+                ),
           ],
         );
       },
@@ -146,7 +121,7 @@ class _Payment extends State<Payment> {
       body: Padding(
         padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
         child: Column(children: <Widget>[
-          Align(
+           Align(
             alignment: Alignment.center,
             child: Text("How much would you like to send to $rName?",
                 style: TextStyle(
@@ -176,12 +151,12 @@ class _Payment extends State<Payment> {
                           border: OutlineInputBorder()),
                       onFieldSubmitted: (value) {
                         setState(() {
-                          amount = (double.parse(value) * 100).round();
+                          amount = (double.parse(value)*100).round();
                         });
                       },
                       onChanged: (value) {
                         setState(() {
-                          amount = (double.parse(value) * 100).round();
+                          amount = (double.parse(value)*100).round();
                         });
                       },
                     )),
