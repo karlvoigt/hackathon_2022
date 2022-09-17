@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'Sync.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -182,7 +181,11 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
+<<<<<<< HEAD
                               onPressed: () => print("object"),
+=======
+                                onPressed: _buttonTest ,
+>>>>>>> 4e78aa34834c6985edea5bbc6b050acee368d60b
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
