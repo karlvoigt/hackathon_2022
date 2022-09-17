@@ -12,45 +12,11 @@ import'Load.dart';
 
 
 
-
-
-
-class _Load extends State<Load> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Center(
-            child: Text(
-          'Load Cowries',
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 30, color: Colors.white),
-        )),
-      ),
-      body: Center(
-        child: Column(children: [
-          ElevatedButton(
-            child: const Text('Open route'),
-            onPressed: () {
-              Navigator.pop(
-                context,
-                MaterialPageRoute(builder: (context) => const Home()),
-              );
-            },
-          ),
-        ]),
-      ),
-    );
-  }
-}
-
-
 class Home extends StatefulWidget {
-  const Home({this.uid, super.key});
-  final String? uid;
+  const Home({ super.key});
   final title = "Cowrie Cash";
+
+
 
   @override
   State<Home> createState() => _Home();
@@ -70,8 +36,6 @@ class _Home extends State<Home> {
       _counter++;
     });
   }
-
-  void _buttonTest() {}
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +151,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: s.loadMoney,
+                                onPressed: () {},
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -246,7 +210,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: _buttonTest,
+                                onPressed: (){},
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'payment.dart';
 
 class Send extends StatefulWidget {
-  const Send({super.key});
+  const Send({ super.key});
 
   @override
   State<Send> createState() => _Send();
@@ -21,21 +22,23 @@ class _Send extends State<Send> {
           style: const TextStyle(fontSize: 30, color: Colors.white),
         ),
       ),
-      body: Center(
-        child: Column(children: [
-          Container(
-              child: MobileScanner(
-                  allowDuplicates: false,
-                  onDetect: (barcode, args) {
-                    if (barcode.rawValue == null) {
-                      debugPrint('Failed to scan Barcode');
-                    } else {
-                      final String code = barcode.rawValue!;
-                      debugPrint('Barcode found! $code');
-                    }
-                  })),
-        ]),
-      ),
+      body: MobileScanner(
+          allowDuplicates: false,
+          onDetect: (barcode, args) {
+            if (barcode.rawValue == null) {
+              debugPrint('Failed to scan Barcode');
+            } else {
+              final String code = barcode.rawValue!;
+              debugPrint('Barcode found! $code');
+              //first querry to see if it is a valid barcode
+              //query firebase here
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Payment(receiverID: code)),
+              );
+            }
+          }),
     );
   }
 }

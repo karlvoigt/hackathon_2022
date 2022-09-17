@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
 import 'signup.dart';
@@ -14,6 +15,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +37,7 @@ class IntroScreen extends StatelessWidget {
     return new SplashScreen(
         useLoader: true,
         loadingText: Text(""),
-        navigateAfterSeconds: result != null ? Home(uid: result.uid) : SignUp(),
+        navigateAfterSeconds: result != null ? Home() : SignUp(),
         seconds: 5,
         title: new Text(
           'Welcome To Cowrie Cash!',

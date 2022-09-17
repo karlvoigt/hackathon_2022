@@ -142,7 +142,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
         isLoading = false;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Home(uid: result.user!.uid)),
+          MaterialPageRoute(builder: (context) => Home()),
         );
       });
     }).catchError((err) {
