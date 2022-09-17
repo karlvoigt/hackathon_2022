@@ -37,20 +37,6 @@ class SignUp extends StatelessWidget {
                 )),
             Padding(
                 padding: EdgeInsets.all(10.0),
-                child: SignInButton(
-                  Buttons.Google,
-                  text: "Sign up with Google",
-                  onPressed: () {},
-                )),
-            Padding(
-                padding: EdgeInsets.all(10.0),
-                child: SignInButton(
-                  Buttons.Twitter,
-                  text: "Sign up with Twitter",
-                  onPressed: () {},
-                )),
-            Padding(
-                padding: EdgeInsets.all(10.0),
                 child: GestureDetector(
                     child: Text("Log In Using Email",
                         style: TextStyle(
