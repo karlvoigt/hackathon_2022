@@ -31,6 +31,7 @@ class _Send extends State<Send> {
               final String code = barcode.rawValue!;
               debugPrint('Barcode found! $code');
               //first querry to see if it is a valid barcode
+              //query firebase here
               Navigator.push(
                 context,
                 MaterialPageRoute(
