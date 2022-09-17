@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -8,7 +9,7 @@ import 'signup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 
@@ -33,7 +34,7 @@ class IntroScreen extends StatelessWidget {
     return new SplashScreen(
         useLoader: true,
         loadingText: Text(""),
-        navigateAfterSeconds: result != null ? Home(uid: result.uid,title: "Cowrie Cash") : SignUp(),
+        navigateAfterSeconds: result != null ? Home(uid: result.uid) : SignUp(),
         seconds: 5,
         title: new Text(
           'Welcome To Meet up!',

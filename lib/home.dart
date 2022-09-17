@@ -231,7 +231,7 @@ class _Load extends State<Load> {
               Navigator.pop(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const Home(title: 'Cowrie Cash')),
+                    builder: (context) => const Home()),
               );
             },
           ),
@@ -242,8 +242,9 @@ class _Load extends State<Load> {
 }
 
 class Home extends StatefulWidget {
-  const Home({this.uid,super.key, required this.title});
+  const Home({this.uid,super.key});
   final String? uid;
+  final title = "Cowrie Cash";
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -253,8 +254,6 @@ class Home extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-
-  final String title;
 
   @override
   State<Home> createState() => _Home();
