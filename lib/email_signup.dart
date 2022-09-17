@@ -23,13 +23,13 @@ class _EmailSignUpState extends State<EmailSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Sign Up")),
+        appBar: AppBar(title: const Text("Sign Up")),
         body: Form(
             key: _formKey,
             child: SingleChildScrollView(
                 child: Column(children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
@@ -48,7 +48,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(
@@ -69,7 +69,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
                   controller: ageController,
                   decoration: InputDecoration(
@@ -88,7 +88,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
                   obscureText: true,
                   controller: passwordController,
@@ -110,9 +110,9 @@ class _EmailSignUpState extends State<EmailSignUp> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: isLoading
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : ElevatedButton(
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue)),
                         onPressed: () {
@@ -123,7 +123,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
                             registerToFb();
                           }
                         },
-                        child: Text('Submit'),
+                        child: const Text('Submit'),
                       ),
               )
             ]))));
@@ -143,7 +143,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
         isLoading = false;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => const Home()),
         );
       });
     }).catchError((err) {
@@ -151,11 +151,11 @@ class _EmailSignUpState extends State<EmailSignUp> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Error"),
+              title: const Text("Error"),
               content: Text(err.message),
               actions: [
                 TextButton(
-                  child: Text("Ok"),
+                  child: const Text("Ok"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:hackathon_2022/main.dart';
-import 'firebase_options.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -18,7 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  int _counter = 0;
   int _balance = 0;
 
   @override
@@ -65,7 +62,7 @@ class _Home extends State<Home> {
             style: const TextStyle(fontSize: 30, color: Colors.white),
           ),
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.logout,
               color: Colors.white,
             ),
@@ -91,7 +88,7 @@ class _Home extends State<Home> {
                 Container(
                     margin: const EdgeInsets.only(top: 20),
                     height: 150,
-                    child: FractionallySizedBox(
+                    child: const FractionallySizedBox(
                         heightFactor: 0.6,
                         alignment: FractionalOffset.center,
                         child: AspectRatio(
@@ -105,13 +102,13 @@ class _Home extends State<Home> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           size: 30,
                           Icons.account_balance_wallet_outlined,
                           color: Colors.cyan,
                         ),
                         Text(
-                          "Balance: " + (_balance / 100).toStringAsFixed(2),
+                          "Balance: ${(_balance / 100).toStringAsFixed(2)}",
                           textAlign: TextAlign.center,
                           style:
                               const TextStyle(fontSize: 30, color: Colors.cyan),
@@ -127,7 +124,8 @@ class _Home extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        margin: EdgeInsets.only(top: 20, left: 10, right: 10),
+                        margin:
+                            const EdgeInsets.only(top: 20, left: 10, right: 10),
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
@@ -141,7 +139,7 @@ class _Home extends State<Home> {
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Icon(
                                         size: 50,
                                         Icons.camera_alt_outlined,
@@ -149,21 +147,22 @@ class _Home extends State<Home> {
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(top: 10)),
-                                      const Text(
+                                      Text(
                                         'Send',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontSize: 20, color: Colors.white),
                                       )
                                     ])))),
                     Container(
-                        margin: EdgeInsets.only(top: 20, left: 10, right: 10),
+                        margin:
+                            const EdgeInsets.only(top: 20, left: 10, right: 10),
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
                                 onPressed: () {},
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Icon(
                                         size: 50,
                                         Icons.qr_code_2_rounded,
@@ -171,9 +170,9 @@ class _Home extends State<Home> {
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(top: 10)),
-                                      const Text(
+                                      Text(
                                         'Receive',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontSize: 20, color: Colors.white),
                                       )
                                     ])))),
@@ -186,7 +185,8 @@ class _Home extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        margin: EdgeInsets.only(top: 20, left: 10, right: 10),
+                        margin:
+                            const EdgeInsets.only(top: 20, left: 10, right: 10),
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
@@ -200,7 +200,7 @@ class _Home extends State<Home> {
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Icon(
                                         size: 50,
                                         Icons.account_balance_outlined,
@@ -208,21 +208,22 @@ class _Home extends State<Home> {
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(top: 10)),
-                                      const Text(
+                                      Text(
                                         'Load',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontSize: 20, color: Colors.white),
                                       )
                                     ])))),
                     Container(
-                        margin: EdgeInsets.only(top: 20, left: 10, right: 10),
+                        margin:
+                            const EdgeInsets.only(top: 20, left: 10, right: 10),
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
                                 onPressed: () {},
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Icon(
                                         size: 50,
                                         Icons.account_box_outlined,
@@ -230,9 +231,9 @@ class _Home extends State<Home> {
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(top: 10)),
-                                      const Text(
+                                      Text(
                                         'Account',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontSize: 20, color: Colors.white),
                                       )
                                     ])))),
