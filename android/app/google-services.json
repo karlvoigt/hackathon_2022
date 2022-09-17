@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1014170192164",
+    "project_id": "fb-backend-68bd1",
+    "storage_bucket": "fb-backend-68bd1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014170192164:android:ba5bbbf7743f45bf65cbb1",
+        "android_client_info": {
+          "package_name": "com.example.hackathon_2022"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014170192164-e1q7vf305ur5l5od1uhaonmj0qbbbd80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHD5iZ52hEKuOuHc6KdS6RQ4vQGi1FF2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014170192164-e1q7vf305ur5l5od1uhaonmj0qbbbd80.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1014170192164-adjcmk7p0hmrakk982je6munqejbk5in.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hackathon2022"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
