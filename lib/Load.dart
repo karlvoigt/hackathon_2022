@@ -7,6 +7,31 @@ class Load extends StatefulWidget {
   State<Load> createState() => _Load();
 }
 class _Load extends State<Load> {
+  var uid='';
+  @override
+  void initState() {
+    super.initState();
+    final ref = FirebaseDatabase.instance.ref();
+    final tuid = FirebaseAuth.instance.currentUser?.uid;
+    if (tuid == Null) {
+      Navigator.pop(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp()),
+      );
+    }
+    final snapshot =
+    ref.child('Identifier/$tuid/balance').get().then((snapshot) => {
+      if (snapshot.exists)
+        {
+          setState(() {
+            uid = tuid;
+          })
+        }
+      else
+        {print('No data available.')}
+    });
+  }
+
   @override
 
   Widget build(BuildContext context) {
@@ -40,6 +65,21 @@ class _Load extends State<Load> {
               border: OutlineInputBorder(),
             ),
             onSubmitted: (String value) async {
+              final ref = FirebaseDatabase.instance.ref();
+              final snapshot =
+              ref.child('Identifier/$uid/balance').get().then((snapshot) => {
+                if (snapshot.exists)
+                  {
+                    setState(() {
+                      int Balance = int.parse(snapshot.value.toString());
+                      Balance+= amount;
+                      ref.child('Identifier/$uid/balance').set(Balance);
+                    })
+                  }
+                else
+                  {print('No data available.')}
+              });
+
               Navigator.pop(
                 context,
                 MaterialPageRoute(
