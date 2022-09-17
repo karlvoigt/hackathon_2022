@@ -57,16 +57,27 @@ class _Send extends State<Send> {
       ),
       body: Center(
         child: Column(children: [
-          ElevatedButton(
-            child: const Text('Open route'),
-            onPressed: () {
-              Navigator.pop(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const Home(title: 'Cowrie Cash')),
-              );
-            },
-          ),
+          // ElevatedButton(
+          //   child: const Text('Open route'),
+          //   onPressed: () {
+          //     Navigator.pop(
+          //       context,
+          //       MaterialPageRoute(
+          //           builder: (context) => const Home(title: 'Cowrie Cash')),
+          //     );
+          //   },
+          // ),
+          Container(
+              child: MobileScanner(
+                  allowDuplicates: false,
+                  onDetect: (barcode, args) {
+                    if (barcode.rawValue == null) {
+                      debugPrint('Failed to scan Barcode');
+                    } else {
+                      final String code = barcode.rawValue!;
+                      debugPrint('Barcode found! $code');
+                    }
+                  })),
         ]),
       ),
     );
