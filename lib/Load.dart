@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Sync.dart';
 import 'home.dart';
 class Load extends StatefulWidget {
   const Load({super.key});
@@ -9,6 +8,7 @@ class Load extends StatefulWidget {
 }
 class _Load extends State<Load> {
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +43,7 @@ class _Load extends State<Load> {
               Navigator.pop(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const Home()),
+                    builder: (context) => Home()),
               );
             },
           )
