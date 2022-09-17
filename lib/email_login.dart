@@ -8,6 +8,7 @@ class EmailLogIn extends StatefulWidget {
   _EmailLogInState createState() => _EmailLogInState();
 }
 
+
 class _EmailLogInState extends State<EmailLogIn> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
