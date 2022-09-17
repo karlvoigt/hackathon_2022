@@ -37,7 +37,7 @@ class IntroScreen extends StatelessWidget {
         navigateAfterSeconds: result != null ? Home(uid: result.uid) : SignUp(),
         seconds: 5,
         title: new Text(
-          'Welcome To Meet up!',
+          'Welcome To Cowrie Cash!',
           style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
         ),
         backgroundColor: Colors.white,
