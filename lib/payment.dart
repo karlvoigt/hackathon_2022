@@ -16,9 +16,7 @@ class _Payment extends State<Payment> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  String firstName = "";
-  String lastName = "";
-  String bodyTemp = "";
+  int amount=0;
   var measure;
 
   void _submit() {
@@ -27,7 +25,7 @@ class _Payment extends State<Payment> {
       barrierDismissible: true, // user can tap anywhere to close the pop up
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Your information has been submitted'),
+          title: const Text('Are you sure you want to pay $balance to $result.'),
           content: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -88,7 +86,6 @@ class _Payment extends State<Payment> {
                   ),
                   child: const Text('OK'),
                   onPressed: () {
-                    User? result = FirebaseAuth.instance.currentUser;
                     Navigator.of(context).pop(); // Close the dialog
                     FocusScope.of(context)
                         .unfocus(); // Unfocus the last selected input field
@@ -145,20 +142,18 @@ class _Payment extends State<Payment> {
                       border: OutlineInputBorder()),
                   onFieldSubmitted: (value) {
                     setState(() {
-                      firstName = value;
+                      amount = value;
                       // firstNameList.add(firstName);
                     });
                   },
                   onChanged: (value) {
                     setState(() {
-                      firstName = value;
+                      amount = value;
                     });
                   },
                   validator: (value) {
-                    if (value == null || value.isEmpty || value.length < 3) {
-                      return 'First Name must contain at least 3 characters';
-                    } else if (value.contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                      return 'First Name cannot contain special characters';
+                    if (!value.contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
+                      return 'Amount must only consist of numbers.';
                     }
                   },
                 )
@@ -208,6 +203,9 @@ class _Payment extends State<Payment> {
                           if (_formKey.currentState!.validate()) {
                             _submit();
                           }
+                          User? result = FirebaseAuth.instance.currentUser;
+                          result.toString();
+
                         },
                         child: const Text("Pay"),
                       ),
