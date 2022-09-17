@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hackathon_2022/main.dart';
 import 'firebase_options.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,34 +8,44 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'signup.dart';
 import 'send.dart';
-import'Load.dart';
-
-
+import 'Load.dart';
 
 class Home extends StatefulWidget {
-  const Home({ super.key});
+  const Home({super.key});
   final title = "Cowrie Cash";
-
-
-
   @override
   State<Home> createState() => _Home();
 }
 
 class _Home extends State<Home> {
   int _counter = 0;
-  int Balance = 0;
+  int _balance = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    final ref = FirebaseDatabase.instance.ref();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == Null) {
+      Navigator.pop(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp()),
+      );
+    }
+    final snapshot =
+        ref.child('Identifier/$uid/balance').get().then((snapshot) => {
+              if (snapshot.exists)
+                {
+                  setState(() {
+                    _balance = int.parse(snapshot.value.toString());
+                  })
+                }
+              else
+                {print('No data available.')}
+            });
   }
+
+  void getBalance() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +111,7 @@ class _Home extends State<Home> {
                           color: Colors.cyan,
                         ),
                         Text(
-                          "Balance: " + (Balance / 100).toStringAsFixed(2),
+                          "Balance: " + (_balance / 100).toStringAsFixed(2),
                           textAlign: TextAlign.center,
                           style:
                               const TextStyle(fontSize: 30, color: Colors.cyan),
@@ -208,7 +219,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: (){},
+                                onPressed: () {},
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
