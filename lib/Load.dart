@@ -50,6 +50,7 @@ class _Load extends State<Load> {
                         MaterialPageRoute(builder: (context) => MyApp()),
                       );
                     }
+                    print(uid);
                     final snapshot = ref
                         .child('Identifier/$uid/balance')
                         .get()
@@ -59,6 +60,7 @@ class _Load extends State<Load> {
                                   setState(() {
                                     int Balance =
                                         int.parse(snapshot.value.toString());
+                                    print(Balance);
                                     Balance += 500;
                                     ref
                                         .child('Identifier/$uid/balance')
