@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'main.dart';
 
 class Payment extends StatefulWidget {
   const Payment({super.key, required this.receiverID});
@@ -12,6 +15,33 @@ class _Payment extends State<Payment> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   int amount = 0;
+  var rid;
+  String rName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    rid = widget.receiverID;
+    final ref = FirebaseDatabase.instance.ref();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == Null) {
+      Navigator.pop(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp()),
+      );
+    }
+    final snapshot =
+    ref.child('Identifier/$rid/name').get().then((snapshot) => {
+      if (snapshot.exists)
+        {
+          setState(() {
+            rName = snapshot.value.toString();
+          })
+        }
+      else
+        {print('No data available.')}
+    });
+  }
 
   void _submit() {
     showDialog<void>(
@@ -20,7 +50,7 @@ class _Payment extends State<Payment> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            "Balance: ${(amount / 100).toStringAsFixed(2)}",
+            "Pay ${(amount / 100).toStringAsFixed(2)} to $rName?",
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 30, color: Colors.cyan),
           ),
@@ -35,17 +65,28 @@ class _Payment extends State<Payment> {
             ),
           ),
           actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
                 TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.grey,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
-                  child: const Text('Go to profile'),
+                  child: const Text('Yes!'),
                   onPressed: () async {
+                    final ref = FirebaseDatabase.instance.ref();
+                    final snapshot =
+                    ref.child('Identifier/$rid/balance').get().then((snapshot) => {
+                      if (snapshot.exists)
+                        {
+                          setState(() {
+                            int Balance = int.parse(snapshot.value.toString());
+                            Balance+= amount;
+                            ref.child('Identifier/$rid/balance').set(Balance);
+                          })
+                        }
+                      else
+                        {print('No data available.')}
+                    });
                     FocusScope.of(context)
                         .unfocus(); // unfocus last selected input field
                     Navigator.pop(context);
@@ -59,22 +100,6 @@ class _Payment extends State<Payment> {
                     setState(() {});
                   }, // so the alert dialog is closed when navigating back to main page
                 ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                  ),
-                  child: const Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                    FocusScope.of(context)
-                        .unfocus(); // Unfocus the last selected input field
-                    _formKey.currentState?.reset(); // Empty the form fields
-                  },
-                )
-              ],
-            )
           ],
         );
       },
@@ -96,9 +121,9 @@ class _Payment extends State<Payment> {
       body: Padding(
         padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
         child: Column(children: <Widget>[
-          const Align(
+           Align(
             alignment: Alignment.center,
-            child: Text("How much would you like to send?",
+            child: Text("How much would you like to send to $rName?",
                 style: TextStyle(
                   fontSize: 24,
                 )),
@@ -126,12 +151,12 @@ class _Payment extends State<Payment> {
                           border: OutlineInputBorder()),
                       onFieldSubmitted: (value) {
                         setState(() {
-                          amount = int.parse(value);
+                          amount = (double.parse(value)*100).round();
                         });
                       },
                       onChanged: (value) {
                         setState(() {
-                          amount = int.parse(value);
+                          amount = (double.parse(value)*100).round();
                         });
                       },
                     )),
