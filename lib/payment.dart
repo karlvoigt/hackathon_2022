@@ -86,9 +86,12 @@ class _Payment extends State<Payment> {
                       if (recBalance.exists)
                         {
                             setState(() {
-                            int Balance = int.parse(recBalance.value.toString());
+                              int myBal =int.parse(currBalance.value.toString());
+                              int Balance = int.parse(recBalance.value.toString());
                             Balance+= amount;
+                            myBal = myBal-amount;
                             ref.child('Identifier/$rid/balance').set(Balance);
+                            ref.child('Identifier/$uid/balance').set(myBal);
                           })
                         }
                       else
