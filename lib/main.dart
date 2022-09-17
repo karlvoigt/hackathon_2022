@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'Sync.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int Balance = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -87,16 +90,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
               children: [
                 Container(
-                    margin: const EdgeInsets.all(10),
-                    height: 200,
+                    margin: const EdgeInsets.only(top:20),
+                    height: 150,
                     child: FractionallySizedBox(
-                        heightFactor: 0.4,
+                        heightFactor: 0.6,
                         alignment: FractionalOffset.center,
                         child: AspectRatio(
                             aspectRatio: 1 / 1,
                             child: Placeholder(
                               color: Colors.tealAccent,
                             )))),
+                Container(
+                    margin: const EdgeInsets.only(top:10),
+                    height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          size: 30,
+                          Icons.account_balance_wallet_outlined,
+                          color: Colors.cyan,
+                        ),
+                        Text(
+                          "Balance: " + (Balance/100).toStringAsFixed(2),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 30, color: Colors.cyan),
+                        )
+                      ],
+                    )
+                ),
               ],
             )),
             Container(
