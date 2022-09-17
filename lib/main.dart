@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:ai_barcode/ai_barcode.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'Sync.dart';
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html';
 
 void main() {
   runApp(const MyApp());
@@ -19,13 +21,52 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.cyan,
       ),
-      home: const MyHomePage(title: 'Cowrie Cash'),
+      home: const Home(title: 'Cowrie Cash'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class Send extends StatefulWidget {
+  const Send({super.key});
+
+  @override
+  State<Send> createState() => _Send();
+}
+
+class _Send extends State<Send> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Center(
+            child: Text(
+          'Send Cowries',
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 30, color: Colors.white),
+        )),
+      ),
+      body: Center(
+        child: Column(children: [
+          ElevatedButton(
+            child: const Text('Open route'),
+            onPressed: () {
+              Navigator.pop(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const Home(title: 'Cowrie Cash')),
+              );
+            },
+          ),
+        ]),
+      ),
+    );
+  }
+}
+
+class Home extends StatefulWidget {
+  const Home({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -39,10 +80,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Home> createState() => _Home();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _Home extends State<Home> {
   int _counter = 0;
   int Balance = 0;
 
@@ -73,12 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Center(
             child: Text(
-                widget.title,
-                textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontSize: 30, color: Colors.white),
-            )
-        ),
+          widget.title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 30, color: Colors.white),
+        )),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -90,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
               children: [
                 Container(
-                    margin: const EdgeInsets.only(top:20),
+                    margin: const EdgeInsets.only(top: 20),
                     height: 150,
                     child: FractionallySizedBox(
                         heightFactor: 0.6,
@@ -101,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.tealAccent,
                             )))),
                 Container(
-                    margin: const EdgeInsets.only(top:10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -112,14 +151,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.cyan,
                         ),
                         Text(
-                          "Balance: " + (Balance/100).toStringAsFixed(2),
+                          "Balance: " + (Balance / 100).toStringAsFixed(2),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 30, color: Colors.cyan),
+                          style:
+                              const TextStyle(fontSize: 30, color: Colors.cyan),
                         )
                       ],
-                    )
-                ),
+                    )),
               ],
             )),
             Container(
@@ -133,7 +171,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: _buttonTest,
+                                onPressed: () {
+                                  window.navigator.getUserMedia(video: true);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Send()),
+                                  );
+                                },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -181,52 +226,54 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                        margin: EdgeInsets.only(top:20,left: 10,right:10),
+                        margin: EdgeInsets.only(top: 20, left: 10, right: 10),
                         child: AspectRatio(
-                            aspectRatio: 5/4,
+                            aspectRatio: 5 / 4,
                             child: ElevatedButton(
                                 onPressed: _buttonTest,
                                 child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        size:50,
+                                        size: 50,
                                         Icons.account_balance_outlined,
                                         color: Colors.white,
                                       ),
-                                      Padding(padding: EdgeInsets.only(top:10)),
+                                      Padding(
+                                          padding: EdgeInsets.only(top: 10)),
                                       const Text(
                                         'Load',
-                                        style: const TextStyle(fontSize: 20, color: Colors.white),
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.white),
                                       )
                                     ])))),
                     Container(
-                        margin: EdgeInsets.only(top:20,left: 10,right:10),
+                        margin: EdgeInsets.only(top: 20, left: 10, right: 10),
                         child: AspectRatio(
-                            aspectRatio: 5/4,
+                            aspectRatio: 5 / 4,
                             child: ElevatedButton(
                                 onPressed: _buttonTest,
                                 child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        size:50,
+                                        size: 50,
                                         Icons.account_box_outlined,
                                         color: Colors.white,
                                       ),
-                                      Padding(padding: EdgeInsets.only(top:10)),
+                                      Padding(
+                                          padding: EdgeInsets.only(top: 10)),
                                       const Text(
                                         'Account',
-                                        style: const TextStyle(fontSize: 20, color: Colors.white),
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.white),
                                       )
                                     ])))),
                   ],
                 )),
           ],
         ),
-      ),// This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
