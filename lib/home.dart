@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 import 'firebase_options.dart';
 import 'Sync.dart';
-// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'signup.dart';
+import 'send.dart';
 import'Load.dart';
 
 
@@ -142,11 +141,13 @@ class Send extends StatefulWidget {
   @override
   State<Send> createState() => _Send();
 }
+import 'send.dart';
 
 
 
 
-class _Send extends State<Send> {
+
+class _Load extends State<Load> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,34 +156,22 @@ class _Send extends State<Send> {
         // the App.build method, and use it to set our appbar title.
         title: Center(
             child: Text(
-          'Send Cowries',
+          'Load Cowries',
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 30, color: Colors.white),
         )),
       ),
       body: Center(
         child: Column(children: [
-          // ElevatedButton(
-          //   child: const Text('Open route'),
-          //   onPressed: () {
-          //     Navigator.pop(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => const Home(title: 'Cowrie Cash')),
-          //     );
-          //   },
-          // ),
-          Container(
-              child: MobileScanner(
-                  allowDuplicates: false,
-                  onDetect: (barcode, args) {
-                    if (barcode.rawValue == null) {
-                      debugPrint('Failed to scan Barcode');
-                    } else {
-                      final String code = barcode.rawValue!;
-                      debugPrint('Barcode found! $code');
-                    }
-                  })),
+          ElevatedButton(
+            child: const Text('Open route'),
+            onPressed: () {
+              Navigator.pop(
+                context,
+                MaterialPageRoute(builder: (context) => const Home()),
+              );
+            },
+          ),
         ]),
       ),
     );
@@ -190,21 +179,10 @@ class _Send extends State<Send> {
 }
 
 
-
-
 class Home extends StatefulWidget {
-  const Home({this.uid,super.key});
+  const Home({this.uid, super.key});
   final String? uid;
   final title = "Cowrie Cash";
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   @override
   State<Home> createState() => _Home();
@@ -225,9 +203,7 @@ class _Home extends State<Home> {
     });
   }
 
-  void _buttonTest() {
-
-  }
+  void _buttonTest() {}
 
   @override
   Widget build(BuildContext context) {
@@ -240,19 +216,17 @@ class _Home extends State<Home> {
     syncData s = syncData();
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Center(
-            child: Text(
-          widget.title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 30, color: Colors.white),
-        )),
-        actions: <Widget>[
-          IconButton(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(
+            widget.title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 30, color: Colors.white),
+          ),
+          leading: IconButton(
             icon: Icon(
-              Icons.exit_to_app,
-              color: Colors.black,
+              Icons.logout,
+              color: Colors.white,
             ),
             onPressed: () {
               FirebaseAuth auth = FirebaseAuth.instance;
@@ -260,12 +234,10 @@ class _Home extends State<Home> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => SignUp()),
-                        (Route<dynamic> route) => false);
+                    (Route<dynamic> route) => false);
               });
             },
-          )
-        ],
-      ),
+          )),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -347,7 +319,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: _buttonTest,
+                                onPressed: s.loadMoney,
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -378,12 +350,13 @@ class _Home extends State<Home> {
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
                                 onPressed: () {
+                                  window.navigator.getUserMedia(video: true);
                                   Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                  builder: (context) => const Load()),
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Load()),
                                   );
-                                  },
+                                },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
