@@ -180,11 +180,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-<<<<<<< HEAD
                               onPressed: () => print("object"),
-=======
-                                onPressed: _buttonTest ,
->>>>>>> 4e78aa34834c6985edea5bbc6b050acee368d60b
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
