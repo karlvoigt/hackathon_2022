@@ -209,6 +209,8 @@ class _Send extends State<Send> {
     );
   }
 }
+
+
 class _Load extends State<Load> {
   @override
   Widget build(BuildContext context) {
@@ -225,15 +227,15 @@ class _Load extends State<Load> {
       ),
       body: Center(
         child: Column(children: [
-          ElevatedButton(
-            child: const Text('Open route'),
-            onPressed: () {
-              Navigator.pop(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const Home()),
-              );
+            TextField(
+            onSubmitted: (String value) async {
+            Navigator.pop(
+            context,
+            MaterialPageRoute(
+            builder: (context) => const Home()),
+            );
             },
+
           ),
         ]),
       ),
@@ -379,7 +381,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: s.loadMoney,
+                                onPressed: _buttonTest,
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -410,7 +412,6 @@ class _Home extends State<Home> {
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
                                 onPressed: () {
-                                  window.navigator.getUserMedia(video: true);
                                   Navigator.push(
                                   context,
                                   MaterialPageRoute(

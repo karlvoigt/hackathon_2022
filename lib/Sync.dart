@@ -3,6 +3,7 @@ class syncData{
   String userIdSend = '';
   String userIdReceive = '';
   String userNameReceive = '';
+  String voucherNum = '';
   int BalanceSender = 0;
   int BalanceReceiver = 0;
   int updateAmount = 0;
@@ -46,8 +47,8 @@ class syncData{
     userNameReceive = "namefromdb"; //will get from the database
   }
 
-  void loadMoney(){
-
+  void loadMoney(String voucher){
+    voucherNum = voucher;
   }
 
 
