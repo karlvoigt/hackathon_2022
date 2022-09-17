@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ai_barcode/ai_barcode.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'firebase_options.dart';
 import 'Sync.dart';
 // ignore: avoid_web_libraries_in_flutter
