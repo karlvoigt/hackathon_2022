@@ -3,7 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'payment.dart';
 
 class Send extends StatefulWidget {
-  const Send({super.key});
+  const Send({ super.key});
 
   @override
   State<Send> createState() => _Send();
@@ -16,10 +16,10 @@ class _Send extends State<Send> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Text(
+        title: Text(
           'Send Cowries',
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 30, color: Colors.white),
+          style: const TextStyle(fontSize: 30, color: Colors.white),
         ),
       ),
       body: MobileScanner(

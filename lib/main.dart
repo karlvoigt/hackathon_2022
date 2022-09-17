@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
+import  'package:firebase_database/firebase_database.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +16,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,17 +35,17 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? result = FirebaseAuth.instance.currentUser;
-    return SplashScreen(
+    return new SplashScreen(
         useLoader: true,
-        loadingText: const Text(""),
-        navigateAfterSeconds: result != null ? const Home() : SignUp(),
+        loadingText: Text(""),
+        navigateAfterSeconds: result != null ? Home() : SignUp(),
         seconds: 5,
-        title: const Text(
+        title: new Text(
           'Welcome To Cowrie Cash!',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
         ),
         backgroundColor: Colors.white,
-        styleTextUnderTheLoader: const TextStyle(),
+        styleTextUnderTheLoader: new TextStyle(),
         onClick: () => print("flutter"),
         loaderColor: Colors.red);
   }

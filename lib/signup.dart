@@ -10,12 +10,12 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(this.title),
         ),
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
               Widget>[
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(10.0),
               child: Text("Meet Up",
                   style: TextStyle(
@@ -24,7 +24,7 @@ class SignUp extends StatelessWidget {
                       fontFamily: 'Roboto')),
             ),
             Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.0),
                 child: SignInButton(
                   Buttons.Email,
                   text: "Sign up with Email",
@@ -36,9 +36,9 @@ class SignUp extends StatelessWidget {
                   },
                 )),
             Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.0),
                 child: GestureDetector(
-                    child: const Text("Log In Using Email",
+                    child: Text("Log In Using Email",
                         style: TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.blue)),
