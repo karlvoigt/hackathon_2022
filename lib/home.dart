@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import 'signup.dart';
+import'Load.dart';
 
 
 // class Home extends StatelessWidget {
@@ -143,12 +144,7 @@ class Send extends StatefulWidget {
 }
 
 
-class Load extends StatefulWidget {
-  const Load({super.key});
 
-  @override
-  State<Load> createState() => _Load();
-}
 
 class _Send extends State<Send> {
   @override
@@ -194,37 +190,7 @@ class _Send extends State<Send> {
 }
 
 
-class _Load extends State<Load> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Center(
-            child: Text(
-              'Load Cowries',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 30, color: Colors.white),
-            )),
-      ),
-      body: Center(
-        child: Column(children: [
-            TextField(
-            onSubmitted: (String value) async {
-            Navigator.pop(
-            context,
-            MaterialPageRoute(
-            builder: (context) => const Home()),
-            );
-            },
 
-          ),
-        ]),
-      ),
-    );
-  }
-}
 
 class Home extends StatefulWidget {
   const Home({this.uid,super.key});
