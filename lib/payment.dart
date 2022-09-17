@@ -79,43 +79,43 @@ class _Payment extends State<Payment> {
                 final uid = FirebaseAuth.instance.currentUser?.uid;
                 if (uid == null) {
                   // TODO display error
-                }
-                final currentBalance = ref
+                } final currentBalance = ref
                     .child('Identifier/$uid/balance')
                     .get()
                     .then((balance) => {
-                          if (balance.exists &&
-                              (int.parse(balance.value.toString()) >= amount))
+                  if (balance.exists &&
+                      (int.parse(balance.value.toString()) >= amount))
+                    {
+                      setState(() {
+                        int myBal = int.parse(balance.value.toString());
+                        final snapshot = ref
+                            .child('Identifier/$rid/balance')
+                            .get()
+                            .then((snapshot) => {
+                          if (snapshot.exists)
                             {
                               setState(() {
-                                int myBal = int.parse(balance.value.toString());
-                                final snapshot = ref
-                                    .child('Identifier/$rid/balance')
-                                    .get()
-                                    .then((snapshot) => {
-                                          if (snapshot.exists)
-                                            {
-                                              setState(() {
-                                                int Balance = int.parse(
-                                                    snapshot.value.toString());
-                                                Balance += amount;
-                                                myBal = myBal - amount;
-                                                ref
-                                                    .child(
-                                                        'Identifier/$rid/balance')
-                                                    .set(Balance);
-                                                ref
-                                                    .child(
-                                                    'Identifier/$uid/balance')
-                                                    .set(myBal);
-                                              })
-                                            }
-                                          else
-                                            {print('No data available.')}
-                                        });
+                                int Balance = int.parse(
+                                    snapshot.value.toString());
+                                Balance += amount;
+                                myBal = myBal - amount;
+                                ref
+                                    .child(
+                                    'Identifier/$rid/balance')
+                                    .set(Balance);
+                                ref
+                                    .child(
+                                    'Identifier/$uid/balance')
+                                    .set(myBal);
                               })
                             }
+                          else
+                            {print('No data available.')}
                         });
+                      })
+                    }
+                });
+
 
                 Navigator.pop(
                   context,

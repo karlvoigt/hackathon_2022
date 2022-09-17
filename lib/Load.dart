@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'main.dart';
+import 'send.dart';
 class Load extends StatefulWidget {
   const Load({super.key});
 
@@ -7,30 +11,6 @@ class Load extends StatefulWidget {
   State<Load> createState() => _Load();
 }
 class _Load extends State<Load> {
-  var uid='';
-  @override
-  void initState() {
-    super.initState();
-    final ref = FirebaseDatabase.instance.ref();
-    final tuid = FirebaseAuth.instance.currentUser?.uid;
-    if (tuid == Null) {
-      Navigator.pop(
-        context,
-        MaterialPageRoute(builder: (context) => MyApp()),
-      );
-    }
-    final snapshot =
-    ref.child('Identifier/$tuid/balance').get().then((snapshot) => {
-      if (snapshot.exists)
-        {
-          setState(() {
-            uid = tuid;
-          })
-        }
-      else
-        {print('No data available.')}
-    });
-  }
 
   @override
 
@@ -61,23 +41,50 @@ class _Load extends State<Load> {
           width : 200,
           child : TextField(
             decoration: InputDecoration(
-              hintText: '123456789',
+              hintText: '',
               border: OutlineInputBorder(),
             ),
             onSubmitted: (String value) async {
+
+              final uid = FirebaseAuth.instance.currentUser?.uid;
+              if (uid == null) {
+                // TODO display error
+              } ;
               final ref = FirebaseDatabase.instance.ref();
-              final snapshot =
-              ref.child('Identifier/$uid/balance').get().then((snapshot) => {
-                if (snapshot.exists)
+              final currentBalance = ref
+                  .child('Identifier/$uid/balance')
+                  .get()
+                  .then((balance) => {
+                if (balance.exists)
                   {
                     setState(() {
-                      int Balance = int.parse(snapshot.value.toString());
-                      Balance+= amount;
-                      ref.child('Identifier/$uid/balance').set(Balance);
+                      int myBal = int.parse(balance.value.toString());
+                      final snapshot = ref
+                          .child('$value/value')
+                          .get()
+                          .then((snapshot) => {
+                        if (snapshot.exists)
+                          {
+                            setState(() {
+                              int amount = int.parse(
+                                  snapshot.value.toString());
+                              myBal += amount;
+                              print(myBal);
+                              ref
+                                  .child(
+                                  '$value/value')
+                                  .set("0");
+                              ref
+                                  .child(
+                                  'Identifier/$uid/balance')
+                                  .set(myBal);
+                            })
+                          }
+                        else
+                          {print('No data available.')}
+                      });
                     })
                   }
-                else
-                  {print('No data available.')}
               });
 
               Navigator.pop(

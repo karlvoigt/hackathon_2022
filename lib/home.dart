@@ -190,13 +190,15 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   window.navigator.getUserMedia(video: true);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Load()),
-                                  );
+                                  ).then((_) {
+                                    initState();
+                                  });
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
