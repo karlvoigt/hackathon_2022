@@ -43,74 +43,46 @@ class _Load extends State<Load> {
                   ),
                   onSubmitted: (String value) async {
                     final ref = FirebaseDatabase.instance.ref();
-                    final uid = await FirebaseAuth.instance.currentUser?.uid;
-                    if (uid == Null) {
-                      Navigator.pop(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyApp()),
-                      );
+                    final uid = FirebaseAuth.instance.currentUser?.uid;
+
+                    if (uid == null) {
+                      return;
                     }
-                    print(uid);
-                    final snapshot = ref
+
+                    ref
                         .child('Identifier/$uid/balance')
                         .get()
-                        .then((snapshot) => {
-                              if (snapshot.exists)
+                        .then((currBalance) => {
+                              if (currBalance.exists)
                                 {
                                   setState(() {
-                                    int Balance =
-                                        int.parse(snapshot.value.toString());
-                                    print(Balance);
-                                    Balance += 500;
+                                    int myBal =
+                                        int.parse(currBalance.value.toString());
+                                    int amount = 0;
+                                    switch (value) {
+                                      case '1234':
+                                        amount = 5000;
+                                        break;
+                                      case '12345':
+                                        amount = 10000;
+                                        break;
+                                      case '123456789':
+                                        amount = 50000;
+                                        break;
+                                      default:
+                                        amount = 0;
+                                        break;
+                                    }
+                                    ;
+                                    myBal += amount;
                                     ref
                                         .child('Identifier/$uid/balance')
-                                        .set(Balance);
+                                        .set(myBal);
                                   })
                                 }
                               else
                                 {print('No data available.')}
                             });
-
-                    // final uid = FirebaseAuth.instance.currentUser?.uid;
-                    // if (uid == null) {
-                    //   // TODO display error
-                    // } ;
-                    // final ref = FirebaseDatabase.instance.ref();
-                    // final currentBalance = ref
-                    //     .child('Identifier/$uid/balance')
-                    //     .get()
-                    //     .then((balance) => {
-                    //   if (balance.exists)
-                    //     {
-                    //       setState(() {
-                    //         int myBal = int.parse(balance.value.toString());
-                    //         final snapshot = ref
-                    //             .child('$value/value')
-                    //             .get()
-                    //             .then((snapshot) => {
-                    //           if (snapshot.exists)
-                    //             {
-                    //               setState(() {
-                    //                 int amount = int.parse(
-                    //                     snapshot.value.toString());
-                    //                 myBal += amount;
-                    //                 print(myBal);
-                    //                 ref
-                    //                     .child(
-                    //                     '$value/value')
-                    //                     .set("0");
-                    //                 ref
-                    //                     .child(
-                    //                     'Identifier/$uid/balance')
-                    //                     .set(myBal);
-                    //               })
-                    //             }
-                    //           else
-                    //             {print('No data available.')}
-                    //         });
-                    //       })
-                    //     }
-                    // });
 
                     Navigator.pop(
                       context,
