@@ -9,6 +9,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'signup.dart';
 import 'send.dart';
 import 'Load.dart';
+import 'receive.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -160,7 +161,14 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  window.navigator.getUserMedia(video: true);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Receive()),
+                                  );
+                                },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
