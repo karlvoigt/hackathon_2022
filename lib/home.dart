@@ -187,7 +187,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: s.loadMoney,
+                                onPressed: _buttonTest ,
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

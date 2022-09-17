@@ -14,16 +14,31 @@ class _Load extends State<Load> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Center(
-            child: Text(
-              'Load Cowries',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 30, color: Colors.white),
-            )),
+        title: Text(
+          'Load Cowries',
+          textAlign: TextAlign.center,
+
+
+          style: const TextStyle(fontSize: 30, color: Colors.white),
+        ),
       ),
       body: Center(
         child: Column(children: [
-          TextField(
+          Padding(padding: EdgeInsets.all(30)),
+          Text(
+            "Enter voucher code!",
+            textAlign: TextAlign.center,
+            style:
+            const TextStyle(fontSize: 30, color: Colors.cyan),
+          ),
+          Padding(padding: EdgeInsets.all(30)),
+          SizedBox(
+          width : 200,
+          child : TextField(
+            decoration: InputDecoration(
+              hintText: '123456789',
+              border: OutlineInputBorder(),
+            ),
             onSubmitted: (String value) async {
               Navigator.pop(
                 context,
@@ -31,10 +46,11 @@ class _Load extends State<Load> {
                     builder: (context) => const Home()),
               );
             },
-
+          )
           ),
         ]),
-      ),
-    );
+      )
+      );
+
   }
 }
