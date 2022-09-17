@@ -14,7 +14,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
   final _formKey = GlobalKey<FormState>();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   DatabaseReference dbRef =
-      FirebaseDatabase.instance.reference().child("Identifier");
+      FirebaseDatabase.instance.ref("Identifier");
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -137,7 +137,8 @@ class _EmailSignUpState extends State<EmailSignUp> {
       dbRef.child(result.user!.uid).set({
         "email": emailController.text,
         "age": ageController.text,
-        "name": nameController.text
+        "name": nameController.text,
+        "balance": 0,
       }).then((res) {
         isLoading = false;
         Navigator.pushReplacement(

@@ -10,11 +10,6 @@ import 'signup.dart';
 import 'send.dart';
 import'Load.dart';
 
-
-
-
-
-
 class _Load extends State<Load> {
   @override
   Widget build(BuildContext context) {
@@ -187,7 +182,7 @@ class _Home extends State<Home> {
                         child: AspectRatio(
                             aspectRatio: 5 / 4,
                             child: ElevatedButton(
-                                onPressed: s.loadMoney,
+                              onPressed: () => print("object"),
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
