@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Sync.dart';
 import 'home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -13,11 +12,9 @@ class Payment extends StatefulWidget {
 }
 
 class _Payment extends State<Payment> {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  int amount=0;
-  var measure;
+  int Amount=0;
 
   void _submit() {
     showDialog<void>(
@@ -25,7 +22,12 @@ class _Payment extends State<Payment> {
       barrierDismissible: true, // user can tap anywhere to close the pop up
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Are you sure you want to pay $balance to $result.'),
+          title: Text(
+            "Balance: " + (Amount / 100).toStringAsFixed(2),
+            textAlign: TextAlign.center,
+            style:
+            const TextStyle(fontSize: 30, color: Colors.cyan),
+          ),
           content: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -33,21 +35,6 @@ class _Payment extends State<Payment> {
                     alignment: Alignment.topLeft,
                     child: Text("Full name:",
                         style: TextStyle(fontWeight: FontWeight.w700))),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(firstName + " " + lastName),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Body Temperature:",
-                        style: TextStyle(fontWeight: FontWeight.w700))),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text("$bodyTemp ${measure == 1 ? "ºC" : "ºF"}"),
-                )
               ],
             ),
           ),
@@ -133,6 +120,7 @@ class _Payment extends State<Payment> {
             Container(
                 margin: EdgeInsets.only(left:30,right:30),
                child: TextFormField(
+                 keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                       labelText: 'Amount',
                       enabledBorder: OutlineInputBorder(
@@ -142,19 +130,20 @@ class _Payment extends State<Payment> {
                       border: OutlineInputBorder()),
                   onFieldSubmitted: (value) {
                     setState(() {
-                      amount = value;
-                      // firstNameList.add(firstName);
+                      Amount = int.parse(value);
                     });
                   },
                   onChanged: (value) {
                     setState(() {
-                      amount = value;
+                      Amount = int.parse(value);
                     });
                   },
                   validator: (value) {
-                    if (!value.contains(RegExp(r'^[0-9_\-=@,\.;]+$'))) {
-                      return 'Amount must only consist of numbers.';
-                    }
+                   // if (value == Null) {
+                   //   return 'Please enter amount.';
+                   // } else if (value.contains(RegExp(r'[^0-9]+'))) {
+                   //    return 'Amount must only consist of numbers.';
+                   //  }
                   },
                 )
             ),
@@ -203,9 +192,6 @@ class _Payment extends State<Payment> {
                           if (_formKey.currentState!.validate()) {
                             _submit();
                           }
-                          User? result = FirebaseAuth.instance.currentUser;
-                          result.toString();
-
                         },
                         child: const Text("Pay"),
                       ),
