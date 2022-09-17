@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'payment.dart';
+import 'home.dart';
 
 class Send extends StatefulWidget {
   const Send({ super.key});
@@ -35,8 +36,15 @@ class _Send extends State<Send> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Payment(receiverID: code)),
-              );
+                    builder: (context) => Payment(receiverID: code))
+              ).then((_) {
+                Navigator.pop(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Home()),
+                );
+
+              });
             }
           }),
     );
