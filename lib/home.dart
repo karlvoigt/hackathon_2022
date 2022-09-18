@@ -111,8 +111,8 @@ class _Home extends State<Home> {
             },
           )),
       body: Stack(children: <Widget>[
-        FractionallySizedBox(
-          heightFactor: 0.35,
+        Container(
+          height: 270,
           alignment: FractionalOffset.topCenter,
           child: Transform.rotate(
             angle: -math.pi,
