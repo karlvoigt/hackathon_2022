@@ -23,7 +23,10 @@ class _EmailSignUpState extends State<EmailSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Sign Up")),
+        backgroundColor: Color.fromARGB(100, 255, 183, 77),
+        appBar: AppBar(
+            backgroundColor: Colors.cyan,
+            title: Text("Sign Up")),
         body: Form(
             key: _formKey,
             child: SingleChildScrollView(

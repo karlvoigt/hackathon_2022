@@ -9,22 +9,25 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromARGB(100, 255, 183, 77),
         appBar: AppBar(
+          backgroundColor: Colors.cyan,
           title: Text(this.title),
         ),
         body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
               Widget>[
             Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text("Meet Up",
+              padding: EdgeInsets.only(top:50.0),
+              child: Text("Cowrie Cash",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    // color: Colors.white,
+                      fontWeight: FontWeight.normal,
                       fontSize: 30,
                       fontFamily: 'Roboto')),
             ),
             Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.only(top:200.0),
                 child: SignInButton(
                   Buttons.Email,
                   text: "Sign up with Email",
@@ -36,7 +39,7 @@ class SignUp extends StatelessWidget {
                   },
                 )),
             Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.only(top: 30.0),
                 child: GestureDetector(
                     child: Text("Log In Using Email",
                         style: TextStyle(

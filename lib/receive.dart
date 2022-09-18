@@ -43,7 +43,9 @@ class _Receive extends State<Receive> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(100, 255, 183, 77),
       appBar: AppBar(
+        backgroundColor: Colors.cyan,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(

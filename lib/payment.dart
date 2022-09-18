@@ -32,46 +32,34 @@ class _Payment extends State<Payment> {
     }
 
     ref.child('Identifier/$rid/name').get().then((snapshot) => {
-      if (snapshot.exists)
-        {
-          setState(() {
-            rName = snapshot.value.toString();
-          })
-        }
-      else
-        {print('No data available.')}
-    });
+          if (snapshot.exists)
+            {
+              setState(() {
+                rName = snapshot.value.toString();
+              })
+            }
+          else
+            {print('No data available.')}
+        });
   }
 
   void _submit() {
     showDialog<void>(
-      context: context,
-      barrierDismissible: true, // user can tap anywhere to close the pop up
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "Pay ${(amount / 100).toStringAsFixed(2)} to $rName?",
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 30, color: Colors.cyan),
-          ),
-          content: SingleChildScrollView(
-            child: Column(
-              children: const <Widget>[
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Full name:",
-                        style: TextStyle(fontWeight: FontWeight.w700))),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-                TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.grey,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                  ),
-                  child: const Text('Yes!'),
+        context: context,
+        barrierDismissible: true, // user can tap anywhere to close the pop up
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(
+                "Pay R${(amount / 100).toStringAsFixed(2)} to $rName?",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 30, color: Colors.black),
+              ),
+              content: Container(
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      minimumSize: const Size.fromHeight(100)),
                   onPressed: () async {
                     final ref = FirebaseDatabase.instance.ref();
                     final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -80,49 +68,85 @@ class _Payment extends State<Payment> {
                       return;
                     }
 
-                    ref.child('Identifier/$uid/balance').get().then((currBalance) => {
-                      if (currBalance.exists && int.parse(currBalance.value.toString()) > amount) {
-                        ref.child('Identifier/$rid/balance').get().then((recBalance) => {
-                      if (recBalance.exists)
+                    ref.child('Identifier/$uid/balance').get().then((currBalance) =>
+                    {
+                      if (currBalance.exists &&
+                          int.parse(currBalance.value.toString()) > amount)
                         {
-                            setState(() {
-                              int myBal =int.parse(currBalance.value.toString());
-                              int Balance = int.parse(recBalance.value.toString());
-                            Balance+= amount;
-                            myBal = myBal-amount;
-                            ref.child('Identifier/$rid/balance').set(Balance);
-                            ref.child('Identifier/$uid/balance').set(myBal);
+                          ref
+                              .child('Identifier/$rid/balance')
+                              .get()
+                              .then((recBalance) =>
+                          {
+                            if (recBalance.exists)
+                              {
+                                ref
+                                    .child(
+                                    'Identifier/aKg2u0nNWjaTIXlejPX1Xj4BDFc2/balance')
+                                    .get()
+                                    .then((adminBal) =>
+                                {
+                                  if (adminBal.exists)
+                                    {
+                                      setState(() {
+                                        int adminBalance = int.parse(adminBal.value.toString());
+                                        int myBal = int.parse(
+                                            currBalance.value.toString());
+                                        int Balance = int.parse(
+                                            recBalance.value.toString());
+                                        Balance += (amount * 0.99).round();
+                                        myBal = myBal - amount;
+                                        adminBalance += (amount * 0.01).round();
+                                        ref
+                                            .child('Identifier/$rid/balance')
+                                            .set(Balance);
+                                        ref
+                                            .child('Identifier/$uid/balance')
+                                            .set(myBal);
+                                        ref.child(
+                                            'Identifier/aKg2u0nNWjaTIXlejPX1Xj4BDFc2/balance')
+                                            .set(adminBalance);
+                                      })
+                                    }
+                                  else
+                                    {print('No data available.')}
+                                })
+                              }
+                            else
+                              {print('No data available.')}
                           })
                         }
                       else
                         {print('No data available.')}
-                    })}
-                      }
-                    );
+                    });
 
                     FocusScope.of(context)
                         .unfocus(); // unfocus last selected input field
                     Navigator.pop(context);
                     await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const Home())) // Open my profile
-                        .then((_) => _formKey.currentState
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const Home())) // Open my profile
+                        .then((_) =>
+                        _formKey.currentState
                             ?.reset()); // Empty the form fields
                     setState(() {});
-                  }, // so the alert dialog is closed when navigating back to main page
+                  },
+                  child: const Text("Yes!"),
                 ),
-          ],
-        );
-      },
+              )
+          );
+        }
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(100, 255, 183, 77),
       appBar: AppBar(
+        backgroundColor: Colors.cyan,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: const Text(
@@ -134,7 +158,7 @@ class _Payment extends State<Payment> {
       body: Padding(
         padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
         child: Column(children: <Widget>[
-           Align(
+          Align(
             alignment: Alignment.center,
             child: Text("How much would you like to send to $rName?",
                 style: const TextStyle(
@@ -164,12 +188,12 @@ class _Payment extends State<Payment> {
                           border: OutlineInputBorder()),
                       onFieldSubmitted: (value) {
                         setState(() {
-                          amount = (double.parse(value)*100).round();
+                          amount = (double.parse(value) * 100).round();
                         });
                       },
                       onChanged: (value) {
                         setState(() {
-                          amount = (double.parse(value)*100).round();
+                          amount = (double.parse(value) * 100).round();
                         });
                       },
                     )),

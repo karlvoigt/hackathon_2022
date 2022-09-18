@@ -19,7 +19,10 @@ class _EmailLogInState extends State<EmailLogIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Login")),
+        backgroundColor: Color.fromARGB(100, 255, 183, 77),
+        appBar: AppBar(
+            backgroundColor: Colors.cyan,
+            title: Text("Login")),
         body: Form(
             key: _formKey,
             child: SingleChildScrollView(

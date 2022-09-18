@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Meet Up',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.cyan,
       ),
       home: IntroScreen(),
     );
@@ -37,16 +37,17 @@ class IntroScreen extends StatelessWidget {
     User? result = FirebaseAuth.instance.currentUser;
     return new SplashScreen(
         useLoader: true,
-        loadingText: Text(""),
+        loadingText: Text("Connecting to the server"),
         navigateAfterSeconds: result != null ? Home() : SignUp(),
-        seconds: 5,
+        seconds: 1,
         title: new Text(
-          'Welcome To Cowrie Cash!',
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          'Cowrie Cash',
+          style: new TextStyle(fontWeight: FontWeight.normal, fontSize: 30.0),
         ),
-        backgroundColor: Colors.white,
+        image: Image.asset('CowrieCoin.png', height: 100,scale: 10,),
+        backgroundColor: Color.fromARGB(100,255, 167, 38),
         styleTextUnderTheLoader: new TextStyle(),
         onClick: () => print("flutter"),
-        loaderColor: Colors.red);
+        loaderColor: Colors.cyan);
   }
 }
