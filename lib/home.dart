@@ -13,6 +13,7 @@ import 'signup.dart';
 import 'send.dart';
 import 'Load.dart';
 import 'receive.dart';
+import 'voucherGenerator.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -60,16 +61,16 @@ class _Home extends State<Home> {
       );
     }
     final snapshot =
-    ref.child('Identifier/$uid/balance').get().then((snapshot) => {
-      if (snapshot.exists)
-        {
-          setState(() {
-            _balance = int.parse(snapshot.value.toString());
-          })
-        }
-      else
-        {print('No data available.')}
-    });
+        ref.child('Identifier/$uid/balance').get().then((snapshot) => {
+              if (snapshot.exists)
+                {
+                  setState(() {
+                    _balance = int.parse(snapshot.value.toString());
+                  })
+                }
+              else
+                {print('No data available.')}
+            });
   }
 
   @override
@@ -135,7 +136,8 @@ class _Home extends State<Home> {
                 ),
                 waveAmplitude: 5.00, //depth of curves
                 waveFrequency: 5, //number of curves in waves
-                backgroundColor: Color.fromARGB(100, 255, 183, 77), //background colors
+                backgroundColor:
+                    Color.fromARGB(100, 255, 183, 77), //background colors
                 // heightPercentage: 0.7,
                 size: Size(
                   double.infinity,
@@ -162,8 +164,7 @@ class _Home extends State<Home> {
                           alignment: FractionalOffset.center,
                           child: AspectRatio(
                               aspectRatio: 1 / 1,
-                              child: Image.asset('CowrieCoin.png')
-                          ))),
+                              child: Image.asset('CowrieCoin.png')))),
                   Container(
                       margin: const EdgeInsets.only(top: 5),
                       height: 50,
@@ -267,15 +268,13 @@ class _Home extends State<Home> {
                           child: AspectRatio(
                               aspectRatio: 5 / 4,
                               child: ElevatedButton(
-                                  onPressed: () async {
+                                  onPressed: () {
                                     window.navigator.getUserMedia(video: true);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => const Load()),
-                                    ).then((_) {
-                                      initState();
-                                    });
+                                    );
                                   },
                                   child: Column(
                                       mainAxisAlignment:
@@ -289,7 +288,7 @@ class _Home extends State<Home> {
                                         Padding(
                                             padding: EdgeInsets.only(top: 10)),
                                         const Text(
-                                          'Load',
+                                          'Load Voucher',
                                           style: const TextStyle(
                                               fontSize: 20,
                                               color: Colors.white),
@@ -300,20 +299,28 @@ class _Home extends State<Home> {
                           child: AspectRatio(
                               aspectRatio: 5 / 4,
                               child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    window.navigator.getUserMedia(video: true);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Create()),
+                                    );
+                                  },
                                   child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           size: 50,
-                                          Icons.account_box_outlined,
+                                          Icons.add_card_outlined,
                                           color: Colors.white,
                                         ),
                                         Padding(
                                             padding: EdgeInsets.only(top: 10)),
                                         const Text(
-                                          'Account',
+                                          'Create Voucher',
+                                          textAlign: TextAlign.center,
                                           style: const TextStyle(
                                               fontSize: 20,
                                               color: Colors.white),

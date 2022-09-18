@@ -46,6 +46,7 @@ dependencies:
   qr: ^2.0.0
   qr_flutter: ^4.0.0
   wave: ^0.2.2
+  random_string_generator: ^2.0.0
 
 dev_dependencies:
   flutter_test:
