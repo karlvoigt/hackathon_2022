@@ -38,6 +38,8 @@ class _Receive extends State<Receive> {
               else
                 {print('No data available.')}
             });
+
+
   }
 
   @override
